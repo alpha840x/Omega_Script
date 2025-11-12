@@ -1,0 +1,11 @@
+// powershell -Command "Invoke-WebRequest -Uri 'https://raw.githubusercontent.com/alpha840x/Omega_Script/main/OMEGAScript.bat' -OutFile '%TEMP%\OMEGAScript.bat'; Start-Process '%TEMP%\OMEGAScript.bat'"
+/*$tempFolder = "$env:TEMP\OmegaFiles"
+New-Item -ItemType Directory -Path $tempFolder -Force
+
+# Download the main file and run it
+Invoke-WebRequest -Uri 'https://raw.githubusercontent.com/alpha840x/Omega_Script/main/OMEGAScript.bat' -OutFile "$tempFolder\OMEGAScript.bat"
+Start-Process "$tempFolder\OMEGAScript.bat"
+
+# Download the helper files (do not run them)
+Invoke-WebRequest -Uri 'https://raw.githubusercontent.com/alpha840x/Omega_Script/main/file2.txt' -OutFile "$tempFolder\file2.txt"
+Invoke-WebRequest -Uri 'https://raw.githubusercontent.com/alpha840x/Omega_Script/main/file3.ps1' -OutFile "$tempFolder\file3.ps1"
