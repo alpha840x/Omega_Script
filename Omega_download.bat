@@ -11,3 +11,4 @@ Invoke-WebRequest -Uri 'https://raw.githubusercontent.com/alpha840x/Omega_Script
 
 Invoke-WebRequest -Uri 'https://raw.githubusercontent.com/alpha840x/Omega_Script/refs/heads/main/folder.bat' -OutFile "$tempFolder\folder.bat"
 
+
