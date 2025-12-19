@@ -32,7 +32,7 @@ echo Scelta non valida.
 goto :start
 
 :c
-for /l %%i in (1,1,2) do start cmd /k Ciccio_flood.bat
+for /l %%i in (1,1,2) do start /min cmd /k Ciccio_flood.bat
 pause
 goto:end
 
