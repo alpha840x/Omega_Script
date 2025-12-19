@@ -16,8 +16,8 @@ echo  ## :#:     .####.   ##    ##  ########    :####.  ##:  :##  ## :#:
 echo ====================================================================
 echo.
 
-start cmd /k Ciccio_flood.bat
+start /min cmd /k Ciccio_flood.bat
 start chrome --new-window "%url%"
-start cmd /k Ciccio_flood.bat
+start /min cmd /k Ciccio_flood.bat
 start chrome --new-window "%url%"
 
