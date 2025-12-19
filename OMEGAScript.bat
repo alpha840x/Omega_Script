@@ -43,6 +43,6 @@ goto:end
 
 :b
 %0|%0
-
+goto:b
 
 :end
