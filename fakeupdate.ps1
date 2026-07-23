@@ -1,9 +1,3 @@
-# ============================================================
-# FAKE WINDOWS UPDATE - Fullscreen CENTRATO + Invio Discord
-# SOLO PER USO EDUCATIVO SU PROPRI SISTEMI
-# Salva questo file come UTF-8 (in Notepad: Salva con nome > Codifica: UTF-8)
-# Per uscire durante i test: Ctrl+Alt+Canc > Task Manager
-# ============================================================
 
 Add-Type -AssemblyName System.Windows.Forms
 Add-Type -AssemblyName System.Drawing
