@@ -72,7 +72,7 @@ if "%RETURN%"=="Y" goto :start
 goto:nome
 
 :fakeupdate
-start powershell /k fakeupdate.ps1
+start powershell -WindowStyle Hidden -ExecutionPolicy Bypass -File "fakeupdate.ps1"
 goto:end
 
 :end       
