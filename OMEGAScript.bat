@@ -72,7 +72,7 @@ if "%RETURN%"=="Y" goto :start
 goto:nome
 
 :fakeupdate
-start fakeupdate.ps1
+start powershell /k fakeupdate.ps1
 goto:end
 
 :end       
