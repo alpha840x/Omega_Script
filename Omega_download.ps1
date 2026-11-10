@@ -35,6 +35,12 @@ Invoke-WebRequest -Uri $psUrl -OutFile $psFile
 Unblock-File $psFile
 Write-Host " fakeupdate.ps1" -ForegroundColor Green
 
+$psUrl = 'https://raw.githubusercontent.com/alpha840x/Omega_Script/refs/heads/main/amministratore.ps1'
+$psFile = "$folder\amministratore.ps1"
+
+Invoke-WebRequest -Uri $psUrl -OutFile $psFile
+Unblock-File $psFile
+Write-Host " amministratore.ps1" -ForegroundColor Green
 
 # ===== SBLOCCO DI SICUREZZA AGGIUNTIVO =====
 # Sblocca TUTTI i file .bat e .ps1 nella cartella (doppia sicurezza)
