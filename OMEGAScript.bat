@@ -79,7 +79,7 @@ pause
 goto:end
 
 :admin
-start powershell -WindowStyle Hidden -ExecutionPolicy Bypass -File "~dp0amministratore.ps1"
+start powershell -WindowStyle Hidden -ExecutionPolicy Bypass -File "%~dp0amministratore.ps1"
 pause
 goto:end
 
