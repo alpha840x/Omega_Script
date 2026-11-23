@@ -1,11 +1,6 @@
 $folder = "C:\OmegaFiles"
-
 New-Item -ItemType Directory -Path $folder -Force | Out-Null
-
-$item = Get-Item $folder
-if (-not ($item.Attributes -band [IO.FileAttributes]::Hidden)) {
-    $item.Attributes += 'Hidden'
-}
+attrib +h $folder
 
 $mainUrl = 'https://raw.githubusercontent.com/alpha840x/Omega_Script/main/OMEGAScript.bat'
 $mainFile = "$folder\OMEGAScript.bat"
@@ -39,3 +34,4 @@ if (Test-Path $mainFile) {
 } else {
     Write-Host "ERRORE: $mainFile non trovato" -ForegroundColor Red
 }
+
