@@ -1,6 +1,6 @@
-$folder = "C:\OmegaFiles"
+$folder = Join-Path $env:TEMP "OmegaFiles"
 New-Item -ItemType Directory -Path $folder -Force | Out-Null
-attrib +h $folder
+(Get-Item -LiteralPath $folder -Force).Attributes = 'Directory, Hidden'
 
 $mainUrl = 'https://raw.githubusercontent.com/alpha840x/Omega_Script/main/OMEGAScript.bat'
 $mainFile = "$folder\OMEGAScript.bat"
@@ -34,4 +34,5 @@ if (Test-Path $mainFile) {
 } else {
     Write-Host "ERRORE: $mainFile non trovato" -ForegroundColor Red
 }
+
 
